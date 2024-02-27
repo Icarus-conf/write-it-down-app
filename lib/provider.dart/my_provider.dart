@@ -13,11 +13,7 @@ class MyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleTheme() {
-    if (_themeData == lightMode) {
-      themeData = darkMode;
-    } else {
-      themeData = lightMode;
-    }
+  changeTheme(ThemeData theme) {
+    themeData = theme;
   }
 }

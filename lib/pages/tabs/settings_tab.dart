@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
+import 'package:todo_c10_sat_route/theme/theme.dart';
 
 class SettingsTab extends StatefulWidget {
   static const String routeName = 'SettingsTab';
@@ -81,13 +82,13 @@ class _SettingsTabState extends State<SettingsTab> {
                   DropdownMenuItem(
                     value: 0,
                     onTap: () => Provider.of<MyProvider>(context, listen: false)
-                        .toggleTheme(),
+                        .changeTheme(lightMode),
                     child: const Text('Light'),
                   ),
                   DropdownMenuItem(
                     value: 1,
                     onTap: () => Provider.of<MyProvider>(context, listen: false)
-                        .toggleTheme(),
+                        .changeTheme(darkMode),
                     child: const Text('Dark'),
                   ),
                 ],
