@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_c10_sat_route/pages/tabs/settings_tab.dart';
 import 'package:todo_c10_sat_route/pages/tabs/tasks_tab.dart';
 import 'package:todo_c10_sat_route/widgets/add_task.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'HomePage';
@@ -24,9 +25,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: const Text(
-          'To Do List',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.appName,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
           ),

@@ -19,6 +19,7 @@ class _SettingsTabState extends State<SettingsTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -44,12 +45,12 @@ class _SettingsTabState extends State<SettingsTab> {
                 items: [
                   DropdownMenuItem(
                     value: 0,
-                    onTap: () {},
+                    onTap: () => provider.changeLang('en'),
                     child: const Text('English'),
                   ),
                   DropdownMenuItem(
                     value: 1,
-                    onTap: () {},
+                    onTap: () => provider.changeLang('ar'),
                     child: const Text('Arabic'),
                   ),
                 ],
@@ -81,14 +82,12 @@ class _SettingsTabState extends State<SettingsTab> {
                 items: [
                   DropdownMenuItem(
                     value: 0,
-                    onTap: () => Provider.of<MyProvider>(context, listen: false)
-                        .changeTheme(lightMode),
+                    onTap: () => provider.changeTheme(lightMode),
                     child: const Text('Light'),
                   ),
                   DropdownMenuItem(
                     value: 1,
-                    onTap: () => Provider.of<MyProvider>(context, listen: false)
-                        .changeTheme(darkMode),
+                    onTap: () => provider.changeTheme(darkMode),
                     child: const Text('Dark'),
                   ),
                 ],
