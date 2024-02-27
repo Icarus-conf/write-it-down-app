@@ -22,18 +22,21 @@ class _TasksTabState extends State<TasksTab> {
             left: 10,
             top: 5,
           ),
-          child: DatePicker(
-            DateTime.now(),
-            height: 100,
-            initialSelectedDate: _selectedDate,
-            selectionColor: Colors.blue,
-            selectedTextColor: Colors.white,
-            onDateChange: (date) {
-              // New date selected
-              setState(() {
-                _selectedDate = date;
-              });
-            },
+          child: Container(
+            color: Colors.white,
+            child: DatePicker(
+              DateTime.now(),
+              height: 100,
+              initialSelectedDate: _selectedDate,
+              selectionColor: Colors.blue,
+              selectedTextColor: Colors.white,
+              onDateChange: (date) {
+                // New date selected
+                setState(() {
+                  _selectedDate = date;
+                });
+              },
+            ),
           ),
         ),
         const SizedBox(

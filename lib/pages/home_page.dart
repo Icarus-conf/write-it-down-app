@@ -16,13 +16,12 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> tabs = [
     const TasksTab(),
-    SettingsTab(),
+    const SettingsTab(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFDFECDB),
       extendBody: true,
       appBar: AppBar(
         title: const Text(
@@ -32,17 +31,12 @@ class _HomePageState extends State<HomePage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Colors.blue,
       ),
       bottomNavigationBar: BottomAppBar(
-        elevation: 0,
         shape: const CircularNotchedRectangle(),
         height: 90,
         notchMargin: 10,
-        color: Colors.white,
         child: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
           onTap: (value) {
             index = value;
             setState(() {});

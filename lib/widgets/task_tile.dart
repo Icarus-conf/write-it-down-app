@@ -11,7 +11,7 @@ class TaskTile extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Slidable(
