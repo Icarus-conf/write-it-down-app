@@ -113,6 +113,7 @@ class FirebaseFunctions {
   static login(String email, String password, Function onSuccess,
       Function onError) async {
     try {
+      // ignore: unused_local_variable
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       onSuccess();
