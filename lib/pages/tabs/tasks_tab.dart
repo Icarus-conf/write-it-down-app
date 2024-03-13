@@ -1,5 +1,7 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/models/task_model.dart';
 import 'package:todo_c10_sat_route/widgets/task_tile.dart';
 
 class TasksTab extends StatefulWidget {
@@ -17,6 +19,9 @@ class _TasksTabState extends State<TasksTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(
+          height: 10,
+        ),
         Padding(
           padding: const EdgeInsets.only(
             left: 10,
@@ -43,10 +48,37 @@ class _TasksTabState extends State<TasksTab> {
           height: 8,
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return const TaskTile();
+          child: StreamBuilder(
+            stream: FirebaseFunctions.getTasks(_selectedDate),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Something went wrong'),
+                );
+              }
+
+              List<TaskModel> tasks =
+                  snapshot.data?.docs.map((doc) => doc.data()).toList() ?? [];
+
+              tasks = tasks.reversed.toList();
+
+              if (tasks.isEmpty) {
+                return const Center(
+                  child: Text('No tasks yet'),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return TaskTile(taskModel: tasks[index]);
+                },
+              );
             },
           ),
         ),

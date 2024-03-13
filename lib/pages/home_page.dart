@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
 import 'package:todo_c10_sat_route/pages/tabs/settings_tab.dart';
 import 'package:todo_c10_sat_route/pages/tabs/tasks_tab.dart';
+import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 import 'package:todo_c10_sat_route/widgets/add_task.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,16 +26,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var auth = Provider.of<MyProvider>(context);
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.appName,
+          '${AppLocalizations.of(context)!.appName} ${auth.userModel?.userName}',
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                FirebaseFunctions.logOut();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginOrRegister.routeName, (route) => false);
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              )),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),

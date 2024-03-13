@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 import 'package:todo_c10_sat_route/theme/theme.dart';
 
@@ -97,6 +99,23 @@ class _SettingsTabState extends State<SettingsTab> {
                 },
               ),
             ),
+            const Spacer(),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  FirebaseFunctions.logOut();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, LoginOrRegister.routeName, (route) => false);
+                },
+                child: const Text(
+                  'Sign out',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(),
           ],
         ),
       ),

@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/models/task_model.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -12,7 +16,7 @@ class _AddTaskState extends State<AddTask> {
 
   var titleController = TextEditingController();
   var desController = TextEditingController();
-
+  var timestamp = Timestamp.now();
   var formKey = GlobalKey<FormState>();
 
   selectDate(BuildContext context) async {
@@ -101,7 +105,18 @@ class _AddTaskState extends State<AddTask> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  TaskModel task = TaskModel(
+                    title: titleController.text,
+                    description: desController.text,
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                    date:
+                        DateUtils.dateOnly(selectedTime).microsecondsSinceEpoch,
+                    timestamp: timestamp,
+                  );
+                  FirebaseFunctions.addTask(task);
+                  Navigator.pop(context);
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
