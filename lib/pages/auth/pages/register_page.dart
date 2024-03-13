@@ -69,8 +69,16 @@ class RegisterPage extends StatelessWidget {
                   },
                 ),
               ),
-              TextButton(
-                  onPressed: onTap, child: const Text('Already a member?')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Already a member?'),
+                  TextButton(
+                    onPressed: onTap,
+                    child: const Text('Login now!'),
+                  ),
+                ],
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
