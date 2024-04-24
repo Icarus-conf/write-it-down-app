@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_c10_sat_route/components/app_colors.dart';
 import 'package:todo_c10_sat_route/firebase_functions.dart';
-import 'package:todo_c10_sat_route/pages/auth/pages/login_page.dart';
+import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
 
 import 'package:todo_c10_sat_route/pages/tabs/settings_tab.dart';
 import 'package:todo_c10_sat_route/pages/tabs/tasks_tab.dart';
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               title: const Text('Logout'),
               onTap: () {
                 FirebaseFunctions.logOut();
-                Navigator.pushNamed(context, LoginPage.routeName);
+                Navigator.pushNamed(context, LoginOrRegister.routeName);
               },
             ),
           ],

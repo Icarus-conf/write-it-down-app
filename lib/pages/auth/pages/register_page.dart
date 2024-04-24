@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:todo_c10_sat_route/components/app_colors.dart';
 import 'package:todo_c10_sat_route/firebase_functions.dart';
 import 'package:todo_c10_sat_route/pages/home_page.dart';
 import 'package:todo_c10_sat_route/widgets/user_image_picker.dart';
@@ -32,6 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       body: Form(
         key: _formKey,
         child: Padding(
@@ -99,49 +101,52 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        FirebaseFunctions.createAccount(
-                            email: emailController.text,
-                            password: passwordController.text,
-                            userName: usernameController.text,
-                            image: File(userImageFile!.path),
-                            onSuccess: () {
-                              Navigator.pushNamedAndRemoveUntil(context,
-                                  HomePage.routeName, (route) => false);
-                            },
-                            onError: (error) {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Error'),
-                                    content: Text(error),
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Cancel'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            });
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please fill input')),
-                        );
-                      }
-                    },
-                    child: const Text('Sign up'),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      FirebaseFunctions.createAccount(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          userName: usernameController.text,
+                          image: File(userImageFile!.path),
+                          onSuccess: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, HomePage.routeName, (route) => false);
+                          },
+                          onError: (error) {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Error'),
+                                  content: Text(error),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Cancel'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Please fill input')),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Sign up',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),

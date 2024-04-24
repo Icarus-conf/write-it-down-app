@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_c10_sat_route/components/app_colors.dart';
 import 'package:todo_c10_sat_route/firebase_functions.dart';
 import 'package:todo_c10_sat_route/pages/home_page.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
@@ -16,6 +18,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var auth = Provider.of<MyProvider>(context);
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       body: Form(
         key: _formKey,
         child: Padding(
@@ -65,45 +68,48 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        FirebaseFunctions.login(
-                            emailController.text, passwordController.text, () {
-                          auth.initUser();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, HomePage.routeName, (route) => false);
-                        }, (error) {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Error'),
-                                content: Text(error),
-                                actions: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Cancel'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        });
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please fill input')),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      FirebaseFunctions.login(
+                          emailController.text, passwordController.text, () {
+                        auth.initUser();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, HomePage.routeName, (route) => false);
+                      }, (error) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Error'),
+                              content: Text(error),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
+                              ],
+                            );
+                          },
                         );
-                      }
-                    },
-                    child: const Text('Login'),
+                      });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Please fill input')),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),

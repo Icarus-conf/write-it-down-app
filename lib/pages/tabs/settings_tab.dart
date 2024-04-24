@@ -1,9 +1,9 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_c10_sat_route/firebase_functions.dart';
 import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
-import 'package:todo_c10_sat_route/theme/theme.dart';
 
 class SettingsView extends StatefulWidget {
   static const String routeName = 'SettingsView';
@@ -88,12 +88,12 @@ class _SettingsViewState extends State<SettingsView> {
                 items: [
                   DropdownMenuItem(
                     value: 0,
-                    onTap: () => provider.changeTheme(AppThemes.lightMode),
+                    onTap: () => AdaptiveTheme.of(context).setLight(),
                     child: const Text('Light'),
                   ),
                   DropdownMenuItem(
                     value: 1,
-                    onTap: () => provider.changeTheme(AppThemes.darkMode),
+                    onTap: () => AdaptiveTheme.of(context).setDark(),
                     child: const Text('Dark'),
                   ),
                 ],
