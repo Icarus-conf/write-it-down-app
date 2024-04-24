@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_c10_sat_route/models/task_model.dart';
 import 'package:todo_c10_sat_route/models/user_model.dart';
@@ -84,6 +87,7 @@ class FirebaseFunctions {
     required String userName,
     required Function onSuccess,
     required Function onError,
+    required File image,
   }) async {
     try {
       final credential =
@@ -91,10 +95,21 @@ class FirebaseFunctions {
         email: email,
         password: password,
       );
+
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('user-image')
+          .child('${credential.user!.uid}.png');
+
+      await ref.putFile(image);
+
+      final url = await ref.getDownloadURL();
+
       UserModel user = UserModel(
         email: email,
         userName: userName,
         id: credential.user!.uid,
+        imageUrl: url,
       );
       addUser(user);
       onSuccess();

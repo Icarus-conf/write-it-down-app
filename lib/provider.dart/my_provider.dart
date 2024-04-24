@@ -5,11 +5,11 @@ import 'package:todo_c10_sat_route/models/user_model.dart';
 import 'package:todo_c10_sat_route/theme/theme.dart';
 
 class MyProvider extends ChangeNotifier {
-  ThemeData themeData = lightMode;
+  ThemeData themeData = AppThemes.lightMode;
 
   String locale = 'en';
 
-  bool get isDarkMode => themeData == darkMode;
+  bool get isDarkMode => themeData == AppThemes.darkMode;
 
   changeTheme(ThemeData theme) {
     themeData = theme;

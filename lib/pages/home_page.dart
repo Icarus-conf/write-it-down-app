@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_c10_sat_route/components/app_colors.dart';
 import 'package:todo_c10_sat_route/firebase_functions.dart';
-import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
+import 'package:todo_c10_sat_route/pages/auth/pages/login_page.dart';
+
 import 'package:todo_c10_sat_route/pages/tabs/settings_tab.dart';
 import 'package:todo_c10_sat_route/pages/tabs/tasks_tab.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
@@ -18,90 +20,165 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
-
-  List<Widget> tabs = [
-    const TasksTab(),
-    const SettingsTab(),
-  ];
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     var auth = Provider.of<MyProvider>(context);
     return Scaffold(
+      key: _scaffoldKey,
       extendBody: true,
-      appBar: AppBar(
-        title: Text(
-          '${AppLocalizations.of(context)!.appName} ${auth.userModel?.userName}',
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                FirebaseFunctions.logOut();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, LoginOrRegister.routeName, (route) => false);
+      drawer: Drawer(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: AppColors.primaryColor,
+                ),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage:
+                          NetworkImage(auth.userModel?.imageUrl ?? ''),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 10,
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            '${auth.userModel?.userName} ',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            '${auth.userModel?.email} ',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, HomePage.routeName);
               },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.white,
-              )),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        height: 90,
-        notchMargin: 10,
-        child: BottomNavigationBar(
-          onTap: (value) {
-            index = value;
-            setState(() {});
-          },
-          currentIndex: index,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedItemColor: Colors.blue,
-          iconSize: 30,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
+              child: const ListTile(
+                leading: Icon(Icons.home_outlined),
+                title: Text('Home'),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, SettingsView.routeName);
+              },
+              child: ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.pushNamed(context, SettingsView.routeName);
+                },
+              ),
+            ),
+            const Spacer(),
+            const Divider(
+              color: Colors.black45,
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                FirebaseFunctions.logOut();
+                Navigator.pushNamed(context, LoginPage.routeName);
+              },
+            ),
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) {
-              return SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: const AddTask(),
-                ),
-              );
-            },
-          );
-          setState(() {});
-        },
-        backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-          side: const BorderSide(
-            color: Colors.white,
-            width: 3,
+      appBar: AppBar(
+        toolbarHeight: 80,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: InkWell(
+            onTap: () => _scaffoldKey.currentState?.openDrawer(),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(auth.userModel?.imageUrl ?? ''),
+              ),
+            ),
           ),
         ),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+        title: Row(
+          children: [
+            Text(
+              '${AppLocalizations.of(context)!.appName} ',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            Text(
+              '${auth.userModel?.userName} ',
+              style: const TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
-      body: tabs[index],
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 50.0,
+          horizontal: 20,
+        ),
+        child: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) {
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: const AddTask(),
+                  ),
+                );
+              },
+            );
+            setState(() {});
+          },
+          backgroundColor: AppColors.primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+            side: const BorderSide(
+              color: Colors.white,
+              width: 3,
+            ),
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const TasksTab(),
     );
   }
 }

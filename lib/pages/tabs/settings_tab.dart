@@ -5,15 +5,15 @@ import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 import 'package:todo_c10_sat_route/theme/theme.dart';
 
-class SettingsTab extends StatefulWidget {
-  static const String routeName = 'SettingsTab';
-  const SettingsTab({super.key});
+class SettingsView extends StatefulWidget {
+  static const String routeName = 'SettingsView';
+  const SettingsView({super.key});
 
   @override
-  State<SettingsTab> createState() => _SettingsTabState();
+  State<SettingsView> createState() => _SettingsViewState();
 }
 
-class _SettingsTabState extends State<SettingsTab> {
+class _SettingsViewState extends State<SettingsView> {
   String selectedLanguage = 'English';
   ThemeMode selectedTheme = ThemeMode.light;
   var modeValue = 0;
@@ -23,6 +23,10 @@ class _SettingsTabState extends State<SettingsTab> {
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context, listen: false);
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -84,12 +88,12 @@ class _SettingsTabState extends State<SettingsTab> {
                 items: [
                   DropdownMenuItem(
                     value: 0,
-                    onTap: () => provider.changeTheme(lightMode),
+                    onTap: () => provider.changeTheme(AppThemes.lightMode),
                     child: const Text('Light'),
                   ),
                   DropdownMenuItem(
                     value: 1,
-                    onTap: () => provider.changeTheme(darkMode),
+                    onTap: () => provider.changeTheme(AppThemes.darkMode),
                     child: const Text('Dark'),
                   ),
                 ],

@@ -1,16 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:todo_c10_sat_route/firebase_functions.dart';
 import 'package:todo_c10_sat_route/pages/home_page.dart';
+import 'package:todo_c10_sat_route/widgets/user_image_picker.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   static const String routeName = 'RegisterPage';
-  RegisterPage({super.key, this.onTap});
+  const RegisterPage({super.key, this.onTap});
   final Function()? onTap;
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
+
   final usernameController = TextEditingController();
+
   final passwordController = TextEditingController();
+
+  File? userImageFile;
+
+  void pickedImage(File image) {
+    userImageFile = image;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +40,9 @@ class RegisterPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              UserImagePicker(
+                imagePickFn: pickedImage,
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
@@ -74,7 +94,7 @@ class RegisterPage extends StatelessWidget {
                 children: [
                   const Text('Already a member?'),
                   TextButton(
-                    onPressed: onTap,
+                    onPressed: widget.onTap,
                     child: const Text('Login now!'),
                   ),
                 ],
@@ -90,6 +110,7 @@ class RegisterPage extends StatelessWidget {
                             email: emailController.text,
                             password: passwordController.text,
                             userName: usernameController.text,
+                            image: File(userImageFile!.path),
                             onSuccess: () {
                               Navigator.pushNamedAndRemoveUntil(context,
                                   HomePage.routeName, (route) => false);
