@@ -22,6 +22,13 @@ class _TasksViewState extends State<TasksView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void setState(VoidCallback fn) {
+    var auth = Provider.of<MyProvider>(context);
+    auth.initUser();
+    super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     var auth = Provider.of<MyProvider>(context);
     return Scaffold(
