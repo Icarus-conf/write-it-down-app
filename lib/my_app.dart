@@ -6,6 +6,7 @@ import 'package:todo_c10_sat_route/pages/auth/pages/login_page.dart';
 import 'package:todo_c10_sat_route/pages/auth/pages/register_page.dart';
 import 'package:todo_c10_sat_route/pages/tasks_view.dart';
 import 'package:todo_c10_sat_route/pages/settings_view.dart';
+
 import 'package:todo_c10_sat_route/widgets/tasks_view_body.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
