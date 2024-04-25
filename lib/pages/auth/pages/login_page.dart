@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:provider/provider.dart';
 import 'package:todo_c10_sat_route/components/app_colors.dart';
-import 'package:todo_c10_sat_route/firebase_functions.dart';
-import 'package:todo_c10_sat_route/pages/home_page.dart';
+import 'package:todo_c10_sat_route/config/firebase_functions.dart';
+import 'package:todo_c10_sat_route/pages/tasks_view.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,7 +18,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var auth = Provider.of<MyProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[400],
       body: Form(
         key: _formKey,
         child: Padding(
@@ -80,7 +79,7 @@ class LoginPage extends StatelessWidget {
                           emailController.text, passwordController.text, () {
                         auth.initUser();
                         Navigator.pushNamedAndRemoveUntil(
-                            context, HomePage.routeName, (route) => false);
+                            context, TasksView.routeName, (route) => false);
                       }, (error) {
                         showDialog(
                           context: context,

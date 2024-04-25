@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/config/firebase_functions.dart';
 import 'package:todo_c10_sat_route/models/user_model.dart';
-import 'package:todo_c10_sat_route/theme/theme.dart';
+import 'package:todo_c10_sat_route/components/theme/theme.dart';
 
 class MyProvider extends ChangeNotifier {
   ThemeData themeData = AppThemes.lightMode;

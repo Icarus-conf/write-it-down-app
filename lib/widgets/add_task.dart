@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_c10_sat_route/components/app_colors.dart';
-import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/config/firebase_functions.dart';
 import 'package:todo_c10_sat_route/models/task_model.dart';
 
 class AddTask extends StatefulWidget {

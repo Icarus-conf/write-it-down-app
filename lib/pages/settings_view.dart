@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/config/firebase_functions.dart';
 import 'package:todo_c10_sat_route/pages/auth/login_or_register.dart';
 import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 

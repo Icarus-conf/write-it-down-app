@@ -2,20 +2,20 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_c10_sat_route/components/app_colors.dart';
 
-import 'package:todo_c10_sat_route/firebase_functions.dart';
+import 'package:todo_c10_sat_route/config/firebase_functions.dart';
 import 'package:todo_c10_sat_route/models/task_model.dart';
 
 import 'package:todo_c10_sat_route/widgets/task_tile.dart';
 
-class TasksTab extends StatefulWidget {
-  static const String routeName = 'TasksTab';
-  const TasksTab({super.key});
+class TasksViewBody extends StatefulWidget {
+  static const String routeName = 'TasksViewBody';
+  const TasksViewBody({super.key});
 
   @override
-  State<TasksTab> createState() => _TasksTabState();
+  State<TasksViewBody> createState() => _TasksViewBodyState();
 }
 
-class _TasksTabState extends State<TasksTab> {
+class _TasksViewBodyState extends State<TasksViewBody> {
   var _selectedDate = DateTime.now();
 
   @override
