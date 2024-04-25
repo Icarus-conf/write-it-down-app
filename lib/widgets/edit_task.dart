@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:todo_c10_sat_route/components/app_colors.dart';
 import 'package:todo_c10_sat_route/config/firebase_functions.dart';
 import 'package:todo_c10_sat_route/models/task_model.dart';
 
@@ -25,18 +26,19 @@ class _EditTaskState extends State<EditTask> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.appName,
-          style: const TextStyle(
+        title: const Text(
+          'Edit your task',
+          style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height * 0.7,
         padding: const EdgeInsets.all(25),
-        margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(12),
@@ -104,7 +106,7 @@ class _EditTaskState extends State<EditTask> {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AppColors.primaryColor,
                 ),
                 child: const Text(
                   'Save Changes',
