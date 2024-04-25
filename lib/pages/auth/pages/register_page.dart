@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_c10_sat_route/components/app_colors.dart';
 import 'package:todo_c10_sat_route/config/firebase_functions.dart';
 import 'package:todo_c10_sat_route/pages/tasks_view.dart';
+import 'package:todo_c10_sat_route/provider.dart/my_provider.dart';
 import 'package:todo_c10_sat_route/widgets/user_image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -32,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    var auth = Provider.of<MyProvider>(context);
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -114,6 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           userName: usernameController.text,
                           image: File(userImageFile!.path),
                           onSuccess: () {
+                            auth.initUser();
                             Navigator.pushNamedAndRemoveUntil(
                                 context, TasksView.routeName, (route) => false);
                           },
